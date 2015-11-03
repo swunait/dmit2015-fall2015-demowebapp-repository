@@ -1,0 +1,42 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/template-dashboard.xhtml">
+	
+	<ui:param name="title" value="Chinook - Albums" />
+
+	<ui:define name="maincontent">
+		<div class="container">
+			<div class="jumbotron">
+				<h:panelGroup rendered="#{albumController.selectedArtist == null}"><h1>Albums</h1></h:panelGroup>
+				<h:panelGroup rendered="#{albumController.selectedArtist != null}"><h1>Albums by #{albumController.selectedArtist.name}</h1></h:panelGroup>
+			</div>
+
+			<h:form>
+				<p:dataTable id="albumTable" 
+					var="_album" value="#{albumController.albums}"
+					paginator="true" rows="13" paginatorPosition="bottom">
+					<p:column headerText="AlbumId" style="width:100px;">
+						<h:outputText value="#{_album.albumId}" />
+					</p:column>
+					<p:column headerText="Title">
+						<h:outputText value="#{_album.title}" />
+					</p:column>		
+					<p:column headerText="Artist">
+						<h:outputText value="#{_album.artist.name}">
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Tracks">
+						<p:commandLink value="view tracks" action="#{trackController.retreiveTracksByAlbum(_album)}"></p:commandLink>
+					</p:column>
+				</p:dataTable>
+			</h:form>
+		
+		</div>
+	</ui:define>
+
+</ui:composition>

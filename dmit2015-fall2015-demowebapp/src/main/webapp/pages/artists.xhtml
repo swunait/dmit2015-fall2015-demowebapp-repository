@@ -1,54 +1,38 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
 	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui">
-
-<h:head>
-	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<title>All Artist</title>  
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/template-dashboard.xhtml">
 	
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />	
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" />
-	<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>	
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-</h:head>
+	<ui:param name="title" value="Chinook - Artists" />
 
-<h:body>
-	<h1>All Artist</h1>
-	<h:form>
-<!-- 		<p:dataTable id="artistTable" var="_artist" value="#{artistController.artists}"> -->
-<!-- 			<p:column headerText="ID"> -->
-<!-- 				<h:outputText value="#{_artist.artistId}" /> -->
-<!-- 			</p:column> -->
-<!-- 			<p:column headerText="Name"> -->
-<!-- 				<h:outputText value="#{_artist.name}" /> -->
-<!-- 			</p:column>		 -->
-<!-- 		</p:dataTable> -->
+	<ui:define name="maincontent">
+		<div class="container">
+			<div class="jumbotron">
+				<h1>Artists</h1>
+			</div>
+
+			<h:form>
+				<p:dataTable id="artistTable" 
+					var="_artist" value="#{artistController.artists}"
+					paginator="true" rows="13" paginatorPosition="bottom">
+					<p:column headerText="ID" style="width:100px;">
+						<h:outputText value="#{_artist.artistId}" />
+					</p:column>
+					<p:column headerText="Name">
+						<h:outputText value="#{_artist.name}" />
+					</p:column>		
+					<p:column headerText="Albums">
+						<p:commandLink value="view albums" action="#{albumController.retreiveAlbumsByArtist(_artist)}"></p:commandLink>
+					</p:column>
+				</p:dataTable>
+			</h:form>
 		
-		<p:dataGrid var="_artist" value="#{artistController.artists}" columns="6" layout="grid"
-        rows="12" paginator="true" id="artitsts"
-        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-        rowsPerPageTemplate="6,12,16">
- 
-        <f:facet name="header">
-            Artist List
-        </f:facet>
- 
-        <p:panel header="#{_artist.artistId}" style="text-align:center">
-            <h:panelGrid columns="1" style="width:100%">
-                <h:outputText value="#{_artist.name}" />
-            </h:panelGrid>
-        </p:panel>
- 
-    </p:dataGrid>
-	</h:form>
-	
-</h:body>
+		</div>
+		
+	</ui:define>
 
-</html>
+</ui:composition>

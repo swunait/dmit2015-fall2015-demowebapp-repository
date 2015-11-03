@@ -27,6 +27,10 @@
          can find it in the source at src/main/webapp/WEB-INF/dmit2015-fall2015-demowebapp-ds.xml -->
       <jta-data-source>java:jboss/datasources/chinookDS</jta-data-source>
       <class>ca.nait.dmit.entity.Artist</class>
+      <class>ca.nait.dmit.entity.Album</class>
+      <class>ca.nait.dmit.entity.Track</class>
+      <class>ca.nait.dmit.entity.Genre</class>
+      <class>ca.nait.dmit.entity.MediaType</class>
       <properties>
          <!-- Properties for Hibernate -->
 <!--          <property name="hibernate.hbm2ddl.auto" value="create-drop" /> -->

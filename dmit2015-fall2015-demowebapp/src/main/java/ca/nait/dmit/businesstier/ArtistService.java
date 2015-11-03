@@ -1,6 +1,6 @@
 package ca.nait.dmit.businesstier;
 
-import java.io.Serializable;
+//import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -13,8 +13,7 @@ import ca.nait.dmit.eistier.ArtistDao;
 import ca.nait.dmit.entity.Artist;
 
 @Stateless
-public class ArtistService implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class ArtistService  {
 	
 	@Inject
 	private Logger logger;
@@ -27,7 +26,7 @@ public class ArtistService implements Serializable {
 	@PostConstruct
 	public void retreiveAllArtist() {
 		artists = artistDao.findAll();
-		logger.infov("Retrieved {0} artits from database.", artists.size());
+		logger.infov("Retrieved {0} records from the database.", artists.size());
 	}
 
 	public List<Artist> getArtists() {
