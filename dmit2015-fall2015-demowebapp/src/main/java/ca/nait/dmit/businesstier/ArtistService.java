@@ -32,5 +32,24 @@ public class ArtistService  {
 	public List<Artist> getArtists() {
 		return artists;
 	}
+	
+	public Artist findArtistById(int artistId) {
+		return artistDao.find(artistId);
+	}
 
+	public List<Artist> findArtistsByName(String name) {
+		return artistDao.findByName(name);
+	}
+	
+	public void UpdateArtist(Artist artist) {
+		artistDao.edit(artist);
+	}
+	
+	public void RemoveArtist(Artist artist) {
+		artistDao.remove(artist);
+	}
+	
+	public void CreateArtist(Artist artist) {
+		artistDao.persist(artist);
+	}
 }

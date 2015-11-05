@@ -2,7 +2,6 @@ package ca.nait.dmit.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.util.List;
 
 
 /**
@@ -15,15 +14,12 @@ public class MediaType implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="MediaTypeId")
 	private int mediaTypeId;
 
 	@Column(name="Name")
 	private String name;
-
-	//bi-directional many-to-one association to Track
-	@OneToMany(mappedBy="mediaType")
-	private List<Track> tracks;
 
 	public MediaType() {
 	}
@@ -42,28 +38,6 @@ public class MediaType implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public List<Track> getTracks() {
-		return this.tracks;
-	}
-
-	public void setTracks(List<Track> tracks) {
-		this.tracks = tracks;
-	}
-
-	public Track addTrack(Track track) {
-		getTracks().add(track);
-		track.setMediaType(this);
-
-		return track;
-	}
-
-	public Track removeTrack(Track track) {
-		getTracks().remove(track);
-		track.setMediaType(null);
-
-		return track;
 	}
 
 }

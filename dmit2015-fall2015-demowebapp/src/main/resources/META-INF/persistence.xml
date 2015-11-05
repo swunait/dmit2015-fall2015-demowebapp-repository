@@ -31,6 +31,11 @@
       <class>ca.nait.dmit.entity.Track</class>
       <class>ca.nait.dmit.entity.Genre</class>
       <class>ca.nait.dmit.entity.MediaType</class>
+      <class>ca.nait.dmit.entity.Customer</class>
+      <class>ca.nait.dmit.entity.Employee</class>
+      <class>ca.nait.dmit.entity.Invoice</class>
+      <class>ca.nait.dmit.entity.InvoiceLine</class>
+      <class>ca.nait.dmit.entity.Playlist</class>
       <properties>
          <!-- Properties for Hibernate -->
 <!--          <property name="hibernate.hbm2ddl.auto" value="create-drop" /> -->

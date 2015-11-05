@@ -13,9 +13,12 @@
 		
 		<div class="container">
 			<div class="jumbotron">
-				<h:panelGroup rendered="#{trackController.selectedAlbum == null}"><h1>Tracks</h1></h:panelGroup>
-				<h:panelGroup rendered="#{trackController.selectedAlbum != null}"><h1>Tracks from album #{trackController.selectedAlbum.title}</h1></h:panelGroup>
+				<h1>Tracks</h1>
 			</div>
+			
+			<h:panelGroup rendered="#{trackController.selectedAlbum != null}"><h2>Album: #{trackController.selectedAlbum.title}</h2></h:panelGroup>
+			<h:panelGroup rendered="#{trackController.selectedMediaType != null}"><h2>Media Type: #{trackController.selectedMediaType.name}</h2></h:panelGroup>
+			<h:panelGroup rendered="#{trackController.selectedGenre != null}"><h2>Genre: #{trackController.selectedGenre.name}</h2></h:panelGroup>
 
 			<h:form>
 				<p:dataTable id="trackTable" 

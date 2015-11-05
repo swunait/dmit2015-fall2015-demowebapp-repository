@@ -3,6 +3,7 @@ package ca.nait.dmit.entity;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.List;
 
 
 /**
@@ -15,6 +16,7 @@ public class Track implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="TrackId")
 	private int trackId;
 
@@ -38,15 +40,28 @@ public class Track implements Serializable {
 	@JoinColumn(name="AlbumId")
 	private Album album;
 
-	//bi-directional many-to-one association to Genre
+	//uni-directional many-to-one association to Genre
 	@ManyToOne
 	@JoinColumn(name="GenreId")
 	private Genre genre;
 
-	//bi-directional many-to-one association to MediaType
+	//uni-directional many-to-one association to MediaType
 	@ManyToOne
 	@JoinColumn(name="MediaTypeId")
 	private MediaType mediaType;
+
+	//uni-directional many-to-many association to Playlist
+	@ManyToMany
+	@JoinTable(
+		name="PlaylistTrack"
+		, joinColumns={
+			@JoinColumn(name="TrackId")
+			}
+		, inverseJoinColumns={
+			@JoinColumn(name="PlaylistId")
+			}
+		)
+	private List<Playlist> playlists;
 
 	public Track() {
 	}
@@ -121,6 +136,14 @@ public class Track implements Serializable {
 
 	public void setMediaType(MediaType mediaType) {
 		this.mediaType = mediaType;
+	}
+
+	public List<Playlist> getPlaylists() {
+		return this.playlists;
+	}
+
+	public void setPlaylists(List<Playlist> playlists) {
+		this.playlists = playlists;
 	}
 
 }

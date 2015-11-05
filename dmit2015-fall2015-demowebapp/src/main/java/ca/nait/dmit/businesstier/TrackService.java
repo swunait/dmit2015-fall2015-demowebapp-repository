@@ -8,6 +8,8 @@ import javax.inject.Inject;
 
 import ca.nait.dmit.eistier.TrackDao;
 import ca.nait.dmit.entity.Album;
+import ca.nait.dmit.entity.Genre;
+import ca.nait.dmit.entity.MediaType;
 import ca.nait.dmit.entity.Track;
 
 @Stateless
@@ -29,5 +31,13 @@ public class TrackService {
 	
 	public List<Track> findTracksByAlbum(Album album) {
 		return trackDao.findByAlbum(album);
+	}
+	
+	public List<Track> findTracksByMediaType(MediaType mediaType) {
+		return trackDao.findByMediaType(mediaType);
+	}
+	
+	public List<Track> findTracksByGenre(Genre genre) {
+		return trackDao.findByGenre(genre);
 	}
 }

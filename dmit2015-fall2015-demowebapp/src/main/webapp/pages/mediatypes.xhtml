@@ -1,0 +1,38 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/template-dashboard.xhtml">
+	
+	<ui:param name="title" value="Chinook - Media Types" />
+
+	<ui:define name="maincontent">
+		<div class="container">
+			<div class="jumbotron">
+				<h1>Media Types</h1>
+			</div>
+
+			<h:form>
+				<p:dataTable id="mediaTypeTable" 
+					var="_mediaType" value="#{mediaTypeController.mediaTypes}"
+					paginator="true" rows="13" paginatorPosition="bottom">
+					<p:column headerText="ID" style="width:100px;">
+						<h:outputText value="#{_mediaType.mediaTypeId}" />
+					</p:column>
+					<p:column headerText="Name">
+						<h:outputText value="#{_mediaType.name}" />
+					</p:column>		
+					<p:column headerText="Tracks">
+						<p:commandLink value="view tracks" action="#{trackController.retreiveTracksByMediaType(_mediaType)}"></p:commandLink>
+					</p:column>
+				</p:dataTable>
+			</h:form>
+		
+		</div>
+		
+	</ui:define>
+
+</ui:composition>

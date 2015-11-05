@@ -8,6 +8,8 @@ import javax.inject.Inject;
 
 import ca.nait.dmit.businesstier.TrackService;
 import ca.nait.dmit.entity.Album;
+import ca.nait.dmit.entity.Genre;
+import ca.nait.dmit.entity.MediaType;
 import ca.nait.dmit.entity.Track;
 
 @Model
@@ -18,7 +20,22 @@ public class TrackController {
 	
 	private List<Track> tracks;
 	private Album selectedAlbum;
+	private MediaType selectedMediaType;
+	private Genre selectedGenre;
 	
+	
+	public MediaType getSelectedMediaType() {
+		return selectedMediaType;
+	}
+	public void setSelectedMediaType(MediaType selectedMediaType) {
+		this.selectedMediaType = selectedMediaType;
+	}
+	public Genre getSelectedGenre() {
+		return selectedGenre;
+	}
+	public void setSelectedGenre(Genre selectedGenre) {
+		this.selectedGenre = selectedGenre;
+	}
 	public Album getSelectedAlbum() {
 		return selectedAlbum;
 	}
@@ -36,7 +53,19 @@ public class TrackController {
 	
 	public String retreiveTracksByAlbum(Album album) {
 		selectedAlbum = album;
-		tracks = trackService.findTracksByAlbum(album);
+		tracks = trackService.findTracksByAlbum(selectedAlbum);
+		return "/pages/tracks";
+	}
+	
+	public String retreiveTracksByMediaType(MediaType mediaType) {
+		selectedMediaType = mediaType;
+		tracks = trackService.findTracksByMediaType(selectedMediaType);
+		return "/pages/tracks";
+	}
+	
+	public String retreiveTracksByGenre(Genre genre) {
+		selectedGenre = genre;
+		tracks = trackService.findTracksByGenre(selectedGenre);
 		return "/pages/tracks";
 	}
 	
