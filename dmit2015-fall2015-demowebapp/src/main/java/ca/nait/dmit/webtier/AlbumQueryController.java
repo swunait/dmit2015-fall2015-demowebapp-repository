@@ -9,24 +9,24 @@ import javax.inject.Named;
 
 import org.hibernate.validator.constraints.NotBlank;
 
-import ca.nait.dmit.businesstier.ArtistService;
-import ca.nait.dmit.entity.Artist;
+import ca.nait.dmit.businesstier.AlbumService;
+import ca.nait.dmit.entity.Album;
 import helper.JSFHelper;
 
 @Named
 @ViewScoped
-public class ArtistQueryController implements Serializable {
+public class AlbumQueryController implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Inject
-	private ArtistService artistService;
+	private AlbumService albumService;
 	
 	@NotBlank(message="Search value is required.")
 	private String searchValue;
 	
-	private List<Artist> searchResults;
+	private List<Album> searchResults;
 	
-	private Artist searchSingleResult;
+	private Album searchSingleResult;
 
 	private int searchResultCount = 0;
 	
@@ -42,29 +42,29 @@ public class ArtistQueryController implements Serializable {
 		this.searchValue = searchValue;
 	}
 	
-	public List<Artist> getSearchResults() {
+	public List<Album> getSearchResults() {
 		return searchResults;
 	}
 
-	public Artist getSearchSingleResult() {
+	public Album getSearchSingleResult() {
 		return searchSingleResult;
 	}
 
 	public void doSearch() {
-		// search by artistId
+		// search by albumId
 		try {
-			int artistId = Integer.parseInt( searchValue );
-			searchSingleResult = artistService.findArtistById(artistId);
+			int albumId = Integer.parseInt( searchValue );
+			searchSingleResult = albumService.findByAlbumId(albumId);
 			searchResultCount = 1;
 		} catch( NumberFormatException e ) {
 			searchSingleResult = null;
 			searchResultCount = 0;
 		}
 
-		// search by artist name
-		if( searchResultCount == 0 )
-		{
-			searchResults =  artistService.findArtistsByName(searchValue);
+		if( searchResultCount == 0 )	 
+		{	
+			// search by album title
+			searchResults =  albumService.findAlbumsByTitle(searchValue);
 			searchResultCount = searchResults.size();
 			if( searchResults.size() == 1 )
 			{
@@ -73,6 +73,18 @@ public class ArtistQueryController implements Serializable {
 			}
 		}
 		
+		if( searchResultCount == 0 )	 
+		{	
+			// search by artist name
+			searchResults =  albumService.findAlbumsByArtistName(searchValue);
+			searchResultCount = searchResults.size();
+			if( searchResults.size() == 1 )
+			{
+				searchSingleResult = searchResults.get(0);
+				searchResults = null;
+			}
+		}
+				
 		if( searchResultCount == 1 )
 		{
 			JSFHelper.addInfoMessage("Successfully found the following record.");
@@ -94,15 +106,15 @@ public class ArtistQueryController implements Serializable {
 		searchResults = null;
 	}
 	
-	public void edit(Artist selectedArtist) {
-		searchSingleResult = selectedArtist;
+	public void edit(Album selectedAlbum) {
+		searchSingleResult = selectedAlbum;
 	}
 	
-	public void updateArtist() {
+	public void updateAlbum() {
 		JSFHelper.addInfoMessage("The update feature will be be inmplemented at a later date.");
 	}
 	
-	public void deleteArtist() {
+	public void deleteAlbum() {
 		JSFHelper.addInfoMessage("The delete feature will be be inmplemented at a later date.");
 	}
 }

@@ -30,4 +30,17 @@ public class AlbumService {
 	public List<Album> findAlbumsByArtist(Artist artist) {
 		return albumDao.findByArtist(artist);
 	}
+	
+	public List<Album> findAlbumsByArtistName(String artistName) {
+		return albumDao.findByArtistName(artistName);
+	}
+
+	public List<Album> findAlbumsByTitle(String title) {
+		return albumDao.findByTitle(title);
+	}
+
+	public Album findByAlbumId(int albumId) {
+		return albumDao.find(albumId);
+	}
+
 }

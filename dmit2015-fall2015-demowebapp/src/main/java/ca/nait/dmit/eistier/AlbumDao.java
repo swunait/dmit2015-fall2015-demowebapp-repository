@@ -23,8 +23,16 @@ public class AlbumDao extends AbstractDao<Album> {
 	@SuppressWarnings("unchecked")
 	public List<Album> findByTitle(String title) {
 		return getEntityManager()
-				.createQuery("FROM Album WHERE title LIKE = :titleValue")
+				.createQuery("FROM Album WHERE title LIKE :titleValue")
 				.setParameter("titleValue", "%" + title + "%")
+				.getResultList();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Album> findByArtistName(String artistName) {
+		return getEntityManager()
+				.createQuery("FROM Album WHERE artist.name LIKE :nameValue")
+				.setParameter("nameValue", "%" + artistName + "%")
 				.getResultList();
 	}
 }

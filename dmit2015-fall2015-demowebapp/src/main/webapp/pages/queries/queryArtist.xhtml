@@ -11,11 +11,15 @@
 
 	<ui:define name="maincontent">
 		<div class="container">
+			<div class="jumbotron">
+				<h1>Artist Query</h1>
+			</div>
+			
 			<h:form id="searchForm">
 				<p:messages id="messages" />
 
 				<p:panel header="Artist Query">
-					<p:outputLabel for="searchValue">Enter artist ID or name:</p:outputLabel>
+					<p:outputLabel for="searchValue">Enter artistId or name:</p:outputLabel>
 					<p:inputText id="searchValue" value="#{artistQueryController.searchValue}"></p:inputText>
 					<p:commandButton value="Search" 
 						ajax="false"
