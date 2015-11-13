@@ -18,6 +18,8 @@
 			<h:form id="searchForm">
 				<p:messages id="messages" />
 
+				<p:focus />
+				
 				<p:panel header="Album Query">
 					<p:outputLabel for="searchValue">Enter albumId, album title, or artist name:</p:outputLabel>
 					<p:inputText id="searchValue" value="#{albumQueryController.searchValue}"></p:inputText>
@@ -52,32 +54,51 @@
 				</p:dataTable>
 				
 				<p:panel id="albumDetail" header="Album Detail" rendered="#{not empty albumQueryController.searchSingleResult}">
-					<h:panelGrid columns="2">
-						<p:outputLabel for="albumId">Album ID:</p:outputLabel>
-						<p:inputText id="albumId" value="#{albumQueryController.searchSingleResult.albumId}" readonly="true"></p:inputText>
+					<div class="form-horizontal">
+						<div class="form-group">
+							<p:outputLabel for="albumId" styleClass="col-sm-2 control-label">Album ID:</p:outputLabel>
+							<div class="col-sm-10">
+								<p:inputText id="albumId" 
+									value="#{albumQueryController.searchSingleResult.albumId}" 
+									readonly="true"
+									styleClass="form-control">
+								</p:inputText>
+							</div>
+						</div>
 						
-						<p:outputLabel for="title">Album Title:</p:outputLabel>
-						<p:inputText id="title" value="#{albumQueryController.searchSingleResult.title}"></p:inputText>
+						<div class="form-group">
+							<p:outputLabel for="title" styleClass="col-sm-2 control-label">Album Title:</p:outputLabel>
+							<div class="col-sm-10">
+								<p:inputText id="title" 
+									value="#{albumQueryController.searchSingleResult.title}"
+									styleClass="form-control">
+								</p:inputText>
+							</div>
+						</div>
 
-						<p:outputLabel for="artistId">Artist ID:</p:outputLabel>
-						<p:inputText id="artistId" value="#{albumQueryController.searchSingleResult.artist.artistId}"></p:inputText>
+						<div class="form-group">
+							<p:outputLabel for="artistId" styleClass="col-sm-2 control-label">Artist ID:</p:outputLabel>
+							<div class="col-sm-10">
+								<p:inputText id="artistId" 
+									value="#{albumQueryController.searchSingleResult.artist.artistId}"
+									styleClass="form-control">
+								</p:inputText>
+							</div>
+						</div>
 						
-						<h:outputText />
-						<h:panelGroup>
-							<p:commandButton value="Update" 
-								ajax="false"
-								actionListener="#{albumQueryController.updateAlbum}">
-							</p:commandButton>
-							<p:commandButton value="Delete" 
-								ajax="false"
-								actionListener="#{albumQueryController.deleteAlbum}">
-							</p:commandButton>
-							<p:commandButton value="Cancel" 
-								ajax="false"
-								actionListener="#{albumQueryController.cancelEdit}">
-							</p:commandButton>
-						</h:panelGroup>
-					</h:panelGrid>
+						<p:commandButton value="Update" icon="ui-icon-disk" styleClass="btn btn-success"
+							ajax="false"
+							actionListener="#{albumQueryController.updateAlbum}">
+						</p:commandButton>
+						<p:commandButton value="Delete" icon="ui-icon-trash" styleClass="btn btn-danger"
+							ajax="false"
+							actionListener="#{albumQueryController.deleteAlbum}">
+						</p:commandButton>
+						<p:commandButton value="Cancel" icon="ui-icon-circle-close" styleClass="btn btn-default"
+							ajax="false"
+							actionListener="#{albumQueryController.cancelEdit}">
+						</p:commandButton>
+					</div>
 				</p:panel>
 			</h:form>
 		

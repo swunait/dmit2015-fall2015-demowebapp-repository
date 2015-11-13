@@ -3,6 +3,8 @@ package ca.nait.dmit.entity;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 
 /**
  * The persistent class for the Artist database table.
@@ -14,10 +16,11 @@ public class Artist implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="ArtistId")
 	private int artistId;
 
+	@NotBlank(message="Artist Name is required")
 	@Column(name="Name")
 	private String name;
 

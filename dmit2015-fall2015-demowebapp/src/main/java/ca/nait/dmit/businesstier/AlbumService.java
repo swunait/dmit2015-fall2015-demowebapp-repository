@@ -5,7 +5,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-
+import javax.persistence.PersistenceException;
 import ca.nait.dmit.eistier.AlbumDao;
 import ca.nait.dmit.entity.Album;
 import ca.nait.dmit.entity.Artist;
@@ -41,6 +41,24 @@ public class AlbumService {
 
 	public Album findByAlbumId(int albumId) {
 		return albumDao.find(albumId);
+	}
+
+	public void update(Album album) {
+		albumDao.edit(album);
+	}
+	
+	public void delete(Album album) throws Exception {
+		try {
+			albumDao.remove(album);
+		} catch (PersistenceException pe) {
+			throw new Exception("This record is being referenced from another table and cannot be deleted.");
+		} catch(Exception e) {
+			throw new Exception(":( Failed to delete this record.");
+		}
+	}
+	
+	public void add(Album album) {
+		albumDao.persist(album);
 	}
 
 }

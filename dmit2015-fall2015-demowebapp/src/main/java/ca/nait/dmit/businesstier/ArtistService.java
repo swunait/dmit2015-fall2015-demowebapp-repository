@@ -1,12 +1,11 @@
 package ca.nait.dmit.businesstier;
 
-//import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-
+import javax.persistence.PersistenceException;
 import org.jboss.logging.Logger;
 
 import ca.nait.dmit.eistier.ArtistDao;
@@ -41,15 +40,21 @@ public class ArtistService  {
 		return artistDao.findByName(name);
 	}
 	
-	public void UpdateArtist(Artist artist) {
+	public void update(Artist artist) {
 		artistDao.edit(artist);
 	}
 	
-	public void RemoveArtist(Artist artist) {
-		artistDao.remove(artist);
+	public void delete(Artist artist) throws Exception {
+		try {
+			artistDao.remove(artist);
+		} catch ( PersistenceException pe ) {
+			throw new Exception("This record is being referenced from another table and cannot be deleted..");
+		} catch ( Exception ex ) {
+			throw new Exception(":( Remove artist was not successful.");
+		} 
 	}
 	
-	public void CreateArtist(Artist artist) {
+	public void add(Artist artist) {
 		artistDao.persist(artist);
 	}
 }

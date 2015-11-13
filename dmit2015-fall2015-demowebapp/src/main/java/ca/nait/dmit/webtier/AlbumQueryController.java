@@ -55,7 +55,9 @@ public class AlbumQueryController implements Serializable {
 		try {
 			int albumId = Integer.parseInt( searchValue );
 			searchSingleResult = albumService.findByAlbumId(albumId);
-			searchResultCount = 1;
+			if( searchSingleResult != null ) {
+				searchResultCount = 1;				
+			}
 		} catch( NumberFormatException e ) {
 			searchSingleResult = null;
 			searchResultCount = 0;
@@ -111,10 +113,19 @@ public class AlbumQueryController implements Serializable {
 	}
 	
 	public void updateAlbum() {
-		JSFHelper.addInfoMessage("The update feature will be be inmplemented at a later date.");
+		albumService.update(searchSingleResult);
+		JSFHelper.addInfoMessage("Successfully updated album information");
 	}
 	
 	public void deleteAlbum() {
-		JSFHelper.addInfoMessage("The delete feature will be be inmplemented at a later date.");
+		try {
+			albumService.delete(searchSingleResult);
+			JSFHelper.addInfoMessage("Successfully deleted album");
+			searchResultCount = 0;
+			searchSingleResult = null;
+			searchResults = null;
+		} catch (Exception e) {
+			JSFHelper.addErrorMessage(e.getMessage());
+		}
 	}
 }

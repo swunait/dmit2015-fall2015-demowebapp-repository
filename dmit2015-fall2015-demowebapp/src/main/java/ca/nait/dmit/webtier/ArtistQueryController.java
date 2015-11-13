@@ -55,7 +55,9 @@ public class ArtistQueryController implements Serializable {
 		try {
 			int artistId = Integer.parseInt( searchValue );
 			searchSingleResult = artistService.findArtistById(artistId);
-			searchResultCount = 1;
+			if( searchSingleResult != null ) {
+				searchResultCount = 1;				
+			}
 		} catch( NumberFormatException e ) {
 			searchSingleResult = null;
 			searchResultCount = 0;
@@ -99,10 +101,19 @@ public class ArtistQueryController implements Serializable {
 	}
 	
 	public void updateArtist() {
-		JSFHelper.addInfoMessage("The update feature will be be inmplemented at a later date.");
+		artistService.update(searchSingleResult);
+		JSFHelper.addInfoMessage("Successfully updated artist information");
 	}
 	
 	public void deleteArtist() {
-		JSFHelper.addInfoMessage("The delete feature will be be inmplemented at a later date.");
+		try {
+			artistService.delete(searchSingleResult);
+			JSFHelper.addInfoMessage("Successfully deleted artist");
+			searchResultCount = 0;
+			searchSingleResult = null;
+			searchResults = null;
+		} catch (Exception e) {
+			JSFHelper.addErrorMessage(e.getMessage());
+		}
 	}
 }

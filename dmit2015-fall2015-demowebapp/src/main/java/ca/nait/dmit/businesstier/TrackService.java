@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.persistence.PersistenceException;
 
 import ca.nait.dmit.eistier.TrackDao;
 import ca.nait.dmit.entity.Album;
@@ -39,5 +40,23 @@ public class TrackService {
 	
 	public List<Track> findTracksByGenre(Genre genre) {
 		return trackDao.findByGenre(genre);
+	}
+	
+	public void update(Track track) {
+		trackDao.edit(track);
+	}
+	
+	public void delete(Track track) throws Exception {
+		try {
+			trackDao.remove(track);
+		} catch (PersistenceException pe) {
+			throw new Exception("This record is being referenced from another table and cannot be deleted.");
+		} catch(Exception e) {
+			throw new Exception(":( Failed to delete this record.");
+		}
+	}
+	
+	public void add(Track track) {
+		trackDao.persist(track);
 	}
 }

@@ -2,6 +2,10 @@ package ca.nait.dmit.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 
 /**
@@ -14,13 +18,16 @@ public class Album implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="AlbumId")
 	private int albumId;
 
+	@NotBlank(message="Album Title is required")
 	@Column(name="Title")
 	private String title;
 
+	@Valid
+	@NotNull(message="A valid artist is required")
 	//uni-directional many-to-one association to Artist
 	@ManyToOne
 	@JoinColumn(name="ArtistId")
