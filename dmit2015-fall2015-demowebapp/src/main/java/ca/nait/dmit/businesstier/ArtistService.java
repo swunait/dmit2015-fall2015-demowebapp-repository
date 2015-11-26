@@ -6,11 +6,18 @@ import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.PersistenceException;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
 import org.jboss.logging.Logger;
 
 import ca.nait.dmit.eistier.ArtistDao;
 import ca.nait.dmit.entity.Artist;
 
+@Path("/artist")
+@Produces(MediaType.APPLICATION_JSON)
 @Stateless
 public class ArtistService  {
 	
@@ -28,6 +35,7 @@ public class ArtistService  {
 		logger.infov("Retrieved {0} records from the database.", artists.size());
 	}
 
+	@GET
 	public List<Artist> getArtists() {
 		return artists;
 	}
