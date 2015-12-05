@@ -6,10 +6,17 @@ import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.PersistenceException;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
 import ca.nait.dmit.eistier.AlbumDao;
 import ca.nait.dmit.entity.Album;
 import ca.nait.dmit.entity.Artist;
 
+@Path("/album")
+@Produces(MediaType.APPLICATION_JSON)
 @Stateless
 public class AlbumService {
 	
@@ -18,6 +25,7 @@ public class AlbumService {
 
 	private List<Album> albums;
 	
+	@GET
 	public List<Album> getAlbums() {
 		return albums;
 	}
